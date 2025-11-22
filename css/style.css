@@ -1,0 +1,1321 @@
+/* ===============================
+   RESET BÁSICO
+=============================== */
+/* Aplica margen y padding cero a todos los elementos y usa box-sizing border-box */
+* {
+    margin: 0; /* Quita margen por defecto */
+    padding: 0; /* Quita padding por defecto */
+    box-sizing: border-box; /* Incluye padding y borde dentro del ancho/alto */
+}
+/* Estilo base del body */
+body {
+    font-family: 'Poppins', sans-serif; /* Fuente principal */
+    overflow-x: hidden; /* Evita scroll horizontal */
+}
+
+/* ===============================
+   NAVBAR GENERAL
+=============================== */
+.navbar {
+    display: flex; /* Flexbox */
+    justify-content: space-between; /* Espacio entre logo y menú */
+    align-items: center; /* Centrado vertical */
+    background-color: #ffffff; /* Fondo blanco */
+    padding: 10px 15px; /* Espaciado interno */
+    position: fixed;   /* Navbar fija */
+    top: 0; /* Arriba */
+    left: 0; /* Inicio al borde izquierdo */
+    width: 100%; /* Ocupa todo el ancho */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra ligera */
+    z-index: 1000; /* Encima de otros elementos */
+}
+/* Logo dentro de navbar */
+.navbar .logo-img {
+    height: 60px; /* Altura del logo */
+}
+
+/* ===============================
+   MENÚ PRINCIPAL
+=============================== */
+.navbar ul {
+    list-style: none; /* Quita viñetas */
+    display: flex; /* Flex horizontal */
+    gap: 12px; /* Separación entre elementos */
+    flex-wrap: wrap; /* Permite que los elementos se muevan a otra línea */
+    justify-content: center; /* Centra horizontalmente */
+}
+.navbar ul li a {
+    color: #004080; /* Color azul */
+    text-decoration: none; /* Sin subrayado */
+    font-weight: 500; /* Semi-bold */
+    padding: 8px 12px; /* Espaciado interno */
+    transition: all 0.3s ease; /* Animación suave */
+    display: block; /* Ocupa todo el espacio disponible */
+    font-size: 16px; /* Tamaño de letra */
+}
+.navbar ul li a:hover {
+    color: #ffcc00; /* Amarillo al pasar mouse */
+    background-color: #f2f2f2; /* Fondo gris claro */
+    border-radius: 5px; /* Bordes redondeados */
+}
+
+/* ===============================
+   SUBMENÚ (DESKTOP)
+=============================== */
+.navbar ul li.dropdown {
+    position: relative; /* Para posicionar el dropdown */
+    cursor: pointer; /* Cambia cursor al pasar */
+}
+/* Menú desplegable */
+.navbar ul li .dropdown-menu {
+    display: none; /* Oculto por defecto */
+    position: absolute; /* Posición absoluta */
+    top: 100%; /* Justo debajo del elemento padre */
+    left: 0; /* Alineado a la izquierda */
+    background-color: rgba(0, 0, 0, 0.6); /* Fondo translúcido */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15); /* Sombra */
+    z-index: 1000; /* Encima de otros elementos */
+    width: auto;       /* Ajusta al contenido */
+    min-width: unset;  /* Sin mínimo ancho */
+    white-space: nowrap; /* Evita que el texto se divida */
+}
+/* Mostrar menú al pasar mouse */
+.navbar ul li:hover .dropdown-menu {
+    display: block; /* Visible */
+}
+/* Links dentro del dropdown */
+.navbar ul li .dropdown-menu li a {
+    padding: 8px 12px; /* Espaciado interno */
+    color: #ffffff; /* Texto blanco */
+    font-weight: 500; /* Semi-bold */
+    font-size: 15px; /* Tamaño más pequeño */
+    transition: all 0.3s ease; /* Animación */
+}
+.navbar ul li .dropdown-menu li a:hover {
+    color: #ffcc00; /* Amarillo */
+    background-color: rgba(255, 255, 255, 0.15); /* Fondo translúcido */
+    border-radius: 5px; /* Bordes redondeados */
+}
+/* Flecha del dropdown */
+.navbar ul li.dropdown > a i {
+    margin-left: 5px; /* Separación del texto */
+    transition: transform 0.3s ease; /* Animación rotación */
+}
+/* Rotar flecha al abrir */
+.navbar ul li.dropdown:hover > a i {
+    transform: rotate(180deg); /* Rotación */
+}
+
+/* ===============================
+   MENU HAMBURGUESA
+=============================== */
+.menu-toggle {
+    display: none; /* Oculto por defecto */
+    flex-direction: column; /* Columnas */
+    cursor: pointer; /* Cursor puntero */
+}
+.menu-toggle .bar {
+    height: 3px; /* Grosor barra */
+    width: 25px; /* Largo barra */
+    background-color: #004080; /* Azul */
+    margin: 4px 0; /* Separación entre barras */
+    transition: all 0.3s ease; /* Animación */
+}
+/* ===============================
+   VERSIÓN MÓVIL
+=============================== */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex; /* Mostrar menú hamburguesa */
+    }
+    .navbar {
+        position: relative; /* Relativo para menú móvil */
+        background-color: transparent; /* Fondo transparente */
+        box-shadow: none; /* Sin sombra */
+    }
+    /* Fondo translúcido para todo el menú */
+    .navbar ul {
+        position: absolute; /* Posición absoluta */
+        top: 70px; /* Debajo de navbar */
+        left: -100%; /* Oculto a la izquierda */
+        flex-direction: column; /* Columnas */
+        width: 100%; /* Ancho completo */
+        background-color: rgba(0, 0, 0, 0.6); /* Fondo gris translúcido */
+        transition: left 0.3s ease; /* Animación */
+        overflow: hidden; /* Oculta contenido */
+        z-index: 999; /* Encima */
+        border-radius: 0; /* Sin bordes redondeados */
+    }
+    .navbar ul.active {
+        left: 0; /* Muestra menú */
+    }
+    /* Elementos del menú móvil */
+    .navbar ul li {
+        width: 100%; /* Ocupa todo el ancho */
+        padding: 10px 12px; /* Espaciado interno */
+        border-bottom: 1px solid rgba(255,255,255,0.1); /* Línea inferior */
+        position: relative; /* Relativo */
+    }
+    .navbar ul li a {
+        color: #ffffff; /* Texto blanco */
+        font-size: 16px; /* Tamaño de letra */
+        font-weight: 500; /* Semi-bold */
+    }
+    .navbar ul li a:hover {
+        background-color: rgba(255,255,255,0.2); /* Fondo translúcido */
+        border-radius: 0; /* Sin bordes redondeados */
+    }
+    /* Submenús móviles */
+    .navbar ul li .dropdown-menu {
+        position: relative; /* Relativo */
+        display: block; /* Mostrar */
+        max-height: 0; /* Oculto por defecto */
+        overflow: hidden; /* Oculta contenido */
+        background-color: rgba(0,0,0,0.6); /* Fondo gris translúcido */
+        padding: 0; /* Sin padding */
+        border-radius: 0; /* Sin bordes */
+        box-shadow: none; /* Sin sombra */
+        transition: max-height 0.3s ease, padding 0.3s ease; /* Animación */
+        width: 100%; /* Ancho completo */
+    }
+    .navbar ul li.active > .dropdown-menu {
+        max-height: 500px; /* Altura expandida */
+        padding: 5px 0; /* Espaciado interno */
+    }
+    .navbar ul li .dropdown-menu li a {
+        padding: 10px 25px; /* Espaciado interno */
+        font-size: 15px; /* Tamaño letra */
+        color: #ffffff; /* Texto blanco */
+        transition: all 0.3s ease; /* Animación */
+    }
+    .navbar ul li .dropdown-menu li a:hover {
+        background-color: rgba(255,255,255,0.2); /* Fondo translúcido al pasar mouse */
+    }
+    /* Flechas móviles */
+    .navbar ul li.dropdown > a i {
+        float: right; /* Flotar a la derecha */
+        color: #ffffff; /* Blanco */
+        transition: transform 0.3s ease; /* Animación rotación */
+    }
+    .navbar ul li.active > a i {
+        transform: rotate(180deg); /* Rotar flecha al abrir */
+    }
+}
+
+/* ===============================
+   SLIDER
+=============================== */
+
+/* Contenedor principal del slider */
+.slider {
+  position: relative; /* Posición relativa para que los slides internos se posicionen */
+  width: 100%; /* Ancho completo */
+  height: 100vh; /* Altura de la ventana */
+  overflow: hidden; /* Oculta contenido que sobresalga */
+}
+
+/* Cada slide individual */
+.slide {
+  position: absolute; /* Posición absoluta dentro del contenedor */
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Altura completa */
+  background-size: cover; /* Imagen cubre todo el contenedor */
+  background-position: center; /* Centrado de la imagen */
+  opacity: 0; /* Invisible por defecto */
+  transition: opacity 1.5s ease-in-out; /* Transición suave de opacidad */
+}
+
+/* Slide activo visible */
+.slide.active {
+  opacity: 1; /* Visible */
+  z-index: 1; /* Encima de otros slides */
+}
+
+/* Capa overlay del slider */
+.overlay {
+  position: absolute; /* Absoluto dentro del slide */
+  width: 100%; /* Ancho completo */
+  height: 100%; /* Altura completa */
+  background: rgba(5, 10, 30, 0.55); /* Fondo azul oscuro translúcido */
+  top: 0; /* Inicio arriba */
+  left: 0; /* Inicio izquierda */
+}
+
+/* Contenido dentro del slide (texto, logo) */
+.slide-content {
+  margin-top: 40px; /* Espaciado superior */
+  position: relative; /* Relativo para poder posicionar elementos internos */
+  color: white; /* Color de texto */
+  text-align: center; /* Centrar texto */
+  top: 45%; /* Posicionar verticalmente */
+  transform: translateY(-50%); /* Centrar exacto vertical */
+  z-index: 2; /* Encima del overlay */
+}
+
+/* Título principal dentro del slide */
+.slide-content h2 {
+  font-size: 2.2rem; /* Tamaño del texto */
+  font-weight: 700; /* Negrita */
+  margin-bottom: 0.5rem; /* Espaciado inferior */
+}
+
+/* Párrafo dentro del slide */
+.slide-content p {
+  font-size: 1.2rem; /* Tamaño del texto */
+  font-weight: 400; /* Normal */
+}
+
+/* Logo dentro del slider */
+.slider-logo {
+  width: 150px; /* Ancho fijo */
+  margin-bottom: 20px; /* Espaciado inferior */
+}
+
+/* Clase genérica h2 grande (parece no estar en uso directamente) */
+.h2{
+  font-size: 70px; /* Tamaño enorme */
+}
+
+/* ===============================
+   SECCIÓN "CONOCE NUESTROS SERVICIOS"
+=============================== */
+
+/* Contenedor de la sección servicios */
+.servicios-section {
+  width: 100%;              /* Ocupa todo el ancho de la pantalla */
+  padding: 20px;       /* Espaciado interno */
+  background-color: #f9f9f9; /* Fondo gris claro */
+  text-align: center;       /* Centra el texto */
+  margin:0;                /* Elimina márgenes exteriores si los hubiera */
+}
+
+
+
+/* Título de la sección */
+.servicios-section h2 {
+  font-family: 'Poppins', sans-serif; /* Fuente Poppins */
+  font-size: 2.5rem; /* Tamaño grande */
+  color: #004080; /* Color azul */
+  font-weight: 700; /* Negrita */
+  margin-bottom: 50px; /* Espaciado inferior */
+  position: relative; /* Para pseudo-elementos */
+}
+
+/* Línea decorativa debajo del título */
+.servicios-section h2::after {
+  content: ""; /* Contenido vacío */
+  width: 600px; /* Ancho de la línea */
+  height: 4px; /* Grosor */
+  background-color: #ffcc00; /* Color amarillo */
+  display: block; /* Mostrar como bloque */
+  margin: 15px auto 0; /* Centrar horizontal y separarlo del título */
+  border-radius: 2px; /* Bordes redondeados */
+}
+
+/* Contenedor de tarjetas de servicios */
+.servicios-grid {
+  display: grid; /* Grid layout */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Columnas adaptables */
+  gap: 20px; /* Separación entre tarjetas */
+  max-width: 1200px; /* Ancho máximo */
+  margin: 0 auto; /* Centrado horizontal */
+  
+}
+
+
+
+/* Tarjeta individual de servicio */
+.servicio-card {
+  background-color: #ffffff; /* Fondo blanco */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 40px 20px; /* Espaciado interno */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra suave */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animación suave */
+}
+
+/* Hover de tarjeta */
+.servicio-card:hover {
+  transform: translateY(-8px); /* Elevar tarjeta */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Sombra más intensa */
+}
+
+
+.servicio-card img {
+  width: 100%;                 /* Ocupa todo el ancho del card */
+  height: 200px;               /* Altura fija (ajústala si deseas) */
+  object-fit: cover;           /* Ajusta sin deformar (recorta si es necesario) */
+  border-radius: 10px;         /* Bordes redondeados suaves */
+  display: block;
+  margin: 0 auto 15px;         /* Centrada y con espacio inferior */
+}
+
+
+
+
+/* Hover del icono dentro de la tarjeta */
+.servicio-card:hover .servicio-icon {
+  color: #ffcc00; /* Cambia a amarillo */
+}
+
+/* Título de la tarjeta */
+.servicio-card h3 {
+  font-size: 1.3rem; /* Tamaño del texto */
+  color: #004080; /* Azul */
+  font-weight: 600; /* Semi-bold */
+  margin-bottom: 12px; /* Espacio inferior */
+}
+
+/* Párrafo de la tarjeta */
+.servicio-card p {
+  font-size: 1rem; /* Tamaño normal */
+  color: #555; /* Gris oscuro */
+  line-height: 1.6; /* Altura de línea */
+}
+
+/* ===============================
+   MÓVIL
+=============================== */
+@media (max-width: 768px) {
+  /* Ajuste padding de sección servicios */
+  .servicios-section {
+    padding: 60px 15px;
+  }
+
+  /* Ajuste tamaño del título */
+  .servicios-section h2 {
+    font-size: 2rem;
+  }
+
+  /* Ajuste padding de tarjeta */
+  .servicio-card {
+    padding: 30px 15px;
+  }
+
+  /* Ajuste tamaño del icono */
+  .servicio-icon {
+    font-size: 40px;
+  }
+
+  /* Ajuste tamaño del título de tarjeta */
+  .servicio-card h3 {
+    font-size: 1.2rem;
+  }
+
+  /* Ajuste tamaño del párrafo de tarjeta */
+  .servicio-card p {
+    font-size: 0.95rem;
+  }
+}
+
+
+
+/* ===============================
+   PLATAFORMAS VIRTUALES
+=============================== */
+
+/* Contenedor principal de plataformas */
+.plataformas-section {
+  background: linear-gradient(180deg, rgba(6, 55, 117, 0.95) 0%, rgba(6, 55, 117, 0.9) 100%); /* Degradado azul oscuro */
+  color: #ffffff; /* Texto blanco */
+  text-align: center; /* Centrado horizontal */
+  padding: 80px 20px; /* Espaciado interno */
+}
+
+/* Título de la sección */
+.plataformas-section h2 {
+  font-family: 'Poppins', sans-serif; /* Fuente */
+  font-size: 2.5rem; /* Tamaño grande */
+  font-weight: 700; /* Negrita */
+  margin-bottom: 10px; /* Espacio inferior */
+}
+
+/* Subtítulo o descripción */
+.plataformas-section .subtitulo {
+  font-size: 1.1rem; /* Tamaño pequeño */
+  color: #e6e6e6; /* Gris claro */
+  margin-bottom: 50px; /* Espaciado inferior */
+}
+
+/* Grid de tarjetas */
+.plataformas-grid {
+  display: grid; /* Grid layout */
+  grid-template-columns: repeat(6, 1fr); /* Exactamente 6 columnas */
+  gap: 25px; /* Espacio entre tarjetas */
+  width: 100%; /* Ancho completo */
+  max-width: 100%; /* Máximo ancho */
+  margin: 0 auto; /* Centrado horizontal */
+  padding: 0 40px; /* Padding interno horizontal */
+  box-sizing: border-box; /* Incluye padding en ancho */
+}
+
+/* Tarjeta individual de plataforma */
+.plataforma-card {
+  background-color: white; /* Fondo blanco */
+  border-radius: 15px; /* Bordes redondeados */
+  padding: 25px 10px; /* Espaciado interno */
+  text-align: center; /* Centrado horizontal */
+  transition: all 0.4s ease; /* Animación suave */
+  backdrop-filter: blur(4px); /* Efecto blur de fondo */
+  text-decoration: none; /* Sin subrayado */
+ 
+  display: flex; /* Flexbox */
+  flex-direction: column; /* Elementos verticales */
+  align-items: center; /* Centrado horizontal */
+  justify-content: center; /* Centrado vertical */
+  height: 80px; /* Altura uniforme */
+  min-width: 100px; /* Ancho mínimo */
+  box-sizing: border-box; /* Incluye padding */
+}
+
+/* Imagen dentro de tarjeta */
+.plataforma-card img {
+  width: 140px; /* Ancho fijo */
+  height: 140px; /* Alto fijo */
+  object-fit: contain; /* Mantiene proporción */
+  margin: 0 auto 10px auto; /* Centrado horizontal y espacio inferior */
+  display: block; /* Para centrado correcto */
+}
+
+/* Texto dentro de tarjeta */
+.plataforma-card span {
+  font-size: 1rem; /* Tamaño normal */
+  font-weight: 600; /* Semi-negrita */
+}
+
+/* Hover de tarjeta */
+.plataforma-card:hover {
+  background-color:white; /* Mantiene fondo blanco */
+  transform: translateY(-6px); /* Eleva tarjeta */
+}
+
+/* Hover de imagen */
+.plataforma-card:hover img {
+  filter: brightness(1) invert(0); /* Mantiene brillo y color original */
+}
+
+/* ====== Responsive Tablets ====== */
+@media (max-width: 1024px) {
+  .plataformas-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columnas en tablets */
+  }
+}
+
+/* ====== Responsive Móvil ====== */
+@media (max-width: 600px) {
+  .plataformas-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
+  }
+
+  .plataforma-card img {
+    width: 120px; /* Reduce tamaño imagen */
+    height: 110px;
+  }
+
+  .plataformas-section h2 {
+    font-size: 2rem; /* Reduce tamaño título */
+  }
+}
+
+/* ===============================
+   ENLACES DE INTERÉS
+=============================== */
+
+/* Contenedor de enlaces */
+.enlaces-section {
+  background: white; /* Fondo blanco */
+  color: #ffffff; /* Texto blanco (aunque se sobreescribe) */
+  text-align: center; /* Centrado */
+  padding: 80px 20px; /* Espaciado */
+}
+
+/* Título de sección enlaces */
+.enlaces-section h2 {
+  font-family: 'Poppins', sans-serif; /* Fuente */
+  font-size: 2.5rem; /* Tamaño grande */
+  color: #004080; /* Azul oscuro */
+  font-weight: 700; /* Negrita */
+  margin-bottom: 50px; /* Espacio inferior */
+  position: relative; /* Para pseudo-elementos */
+}
+
+/* Línea decorativa bajo el título */
+.enlaces-section h2::after {
+  content: ""; /* Pseudo-elemento vacío */
+  width: 80px; /* Ancho */
+  height: 4px; /* Grosor */
+  background-color: #ffcc00; /* Amarillo */
+  display: block; /* Bloque */
+  margin: 15px auto 0; /* Centrado */
+  border-radius: 2px; /* Bordes redondeados */
+}
+
+/* Tarjetas de enlaces */
+.enlaces-section .plataforma-card {
+  background-color: white; /* Fondo blanco */
+  border-radius: 15px; /* Bordes redondeados */
+  border: 2px solid #004080; /* Borde azul */
+  padding: 10px 5px; /* Espaciado interno */
+  text-align: center; /* Centrado horizontal */
+  display: flex; /* Flexbox */
+  flex-direction: column; /* Vertical */
+  align-items: center; /* Centrado */
+  justify-content: center; /* Centrado vertical */
+  height: 100px; /* Altura uniforme */
+  min-width: 120px; /* Ancho mínimo */
+  box-sizing: border-box; /* Incluye padding en ancho */
+  text-decoration: none; /* Sin subrayado */
+  transition: all 0.4s ease; /* Animación suave */
+}
+
+/* Imagen dentro de tarjeta de enlaces */
+.enlaces-section .plataforma-card img {
+  width: 150px; /* Ancho imagen */
+  height: 100px; /* Alto imagen */
+  object-fit: contain; /* Mantiene proporción */
+  margin-bottom: 12px; /* Espacio inferior */
+  display: block; /* Bloque para centrar */
+}
+
+/* Texto de la tarjeta */
+.enlaces-section .plataforma-card span {
+  font-size: 1rem; /* Tamaño normal */
+  font-weight: 600; /* Semi-negrita */
+  color: #004080; /* Azul oscuro */
+}
+
+/* Hover de tarjeta enlaces */
+.enlaces-section .plataforma-card:hover {
+  transform: translateY(-6px); /* Eleva tarjeta */
+  border-color: #ffcc00; /* Borde amarillo */
+}
+
+/* movil enlace de interes */
+@media (max-width: 768px) {
+ /* Imagen dentro de tarjeta de enlaces */
+.enlaces-section .plataforma-card img {
+  width: 110px; /* Ancho imagen */
+  height: 90px; /* Alto imagen */
+  object-fit: contain; /* Mantiene proporción */
+  margin-bottom: 12px; /* Espacio inferior */
+  display: block; /* Bloque para centrar */
+}
+ }
+
+/* ===============================
+   FOOTER
+=============================== */
+
+/* Contenedor principal del footer */
+.footer-section {
+  background-color: #cad5e3; /* Azul claro */
+  color:black; /* Texto negro */
+  padding: 60px 20px 30px 20px; /* Espaciado */
+  font-family: 'Poppins', sans-serif; /* Fuente */
+}
+
+/* Contenedor interno */
+.footer-container {
+  display: flex; /* Flexbox */
+  flex-wrap: wrap; /* Permite filas */
+  justify-content: space-between; /* Separación horizontal */
+  max-width: 1200px; /* Máximo ancho */
+  margin: 0 auto; /* Centrado */
+  gap: 30px; /* Espaciado entre columnas */
+}
+
+/* Columnas del footer */
+.footer-column {
+  flex: 1; /* Ocupa el espacio disponible */
+  min-width: 250px; /* Ancho mínimo */
+}
+
+/* Logo en el footer */
+.footer-logo img {
+  max-width: 180px; /* Tamaño máximo */
+  margin-bottom: 20px; /* Espacio inferior */
+}
+
+/* Títulos de columnas */
+.footer-column h4 {
+  font-size: 1.2rem; /* Tamaño */
+  margin-bottom: 15px; /* Espacio inferior */
+  color: #04228e; /* Azul oscuro */
+  text-transform: uppercase; /* Mayúsculas */
+}
+
+/* Párrafos en columnas */
+.footer-column p {
+  font-size: 0.95rem; /* Tamaño texto */
+  line-height: 1.6; /* Altura línea */
+}
+
+/* Redes sociales */
+.footer-socials {
+  margin-top: 10px; /* Espacio superior */
+}
+
+/* Iconos de redes sociales */
+.footer-socials a {
+  display: inline-block; /* En línea */
+  color: #004080; /* Azul */
+  font-size: 1.2rem; /* Tamaño icono */
+  margin-right: 12px; /* Separación horizontal */
+  transition: color 0.3s ease; /* Animación */
+}
+
+/* Hover en iconos */
+.footer-socials a:hover {
+  color: #ffcc00; /* Amarillo */
+}
+
+/* Footer inferior */
+.footer-bottom {
+  text-align: center; /* Centrado */
+  margin-top: 30px; /* Espacio superior */
+  font-size: 0.9rem; /* Tamaño pequeño */
+  border-top: 1px solid rgba(255,255,255,0.2); /* Línea superior */
+  padding-top: 15px; /* Espacio arriba de línea */
+}
+
+/* ====== Móvil ====== */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column; /* Columna */
+    align-items: center; /* Centrado horizontal */
+    text-align: center; /* Centrado texto */
+  }
+
+  .footer-column {
+    max-width: 100%; /* Ancho completo */
+    margin-bottom: 30px; /* Espacio inferior */
+  }
+
+  .footer-socials a {
+    font-size: 1.5rem; /* Iconos más grandes */
+    margin: 0 8px; /* Separación entre iconos */
+  }
+}
+
+
+
+/* seccion bienvenidos */
+
+.welcome-section {
+ width: 100%;              /* Ocupa todo el ancho de la pantalla */
+  padding: 20px 20px;       /* Espaciado interno */
+  background-color: #f9f9f9; /* Fondo gris claro */
+  text-align: center;       /* Centra el texto */
+  margin:0; 
+}
+
+/* Título de la sección */
+.welcome-section h2 {
+ font-family: 'Poppins', sans-serif; /* Fuente */
+  font-size: 2.5rem; /* Tamaño grande */
+   color: #2c5aa0; /* Color azul para el nombre */
+  font-weight: 700; /* Negrita */
+  margin-bottom: 50px; /* Espacio inferior */
+  position: relative; /* Para pseudo-elementos */
+  text-align: center;
+
+}
+
+/* Línea decorativa debajo del título */
+.welcome-section h2::after {
+  content: ""; /* Contenido vacío */
+  width: 700px; /* Ancho de la línea */
+  height: 4px; /* Grosor */
+  background-color: #ffcc00; /* Color amarillo */
+  display: block; /* Mostrar como bloque */
+  margin: 15px auto 0; /* Centrar horizontal y separarlo del título */
+  border-radius: 2px; /* Bordes redondeados */
+}
+
+/* Contenedor principal blanco con sombra y bordes redondeados */
+.container {
+    background-color: white; /* Fondo blanco para la sección */
+    border-radius: 15px; /* Bordes redondeados de 15px */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra suave debajo del contenedor */
+    overflow: hidden; /* Evita que el contenido sobresalga fuera de los bordes redondeados */
+}
+
+/* Wrapper de contenido para organizar columnas */
+.content-wrapper {
+    display: flex; /* Coloca hijos en fila (horizontalmente) */
+    min-height: 500px; /* Altura mínima de la sección para mantener proporciones */
+}
+
+/* Columna para la imagen de la escuela */
+.image-column {
+    flex: 0 0 45%; /* Ocupa 45% del ancho disponible, no crece ni se encoge automáticamente */
+    display: flex; /* Permite centrar la imagen dentro de la columna */
+    align-items: center; /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    overflow: hidden; /* Oculta cualquier contenido que sobresalga */
+}
+
+/* Contenedor de la imagen con tamaño completo */
+.school-image {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 100%; /* Ocupa toda la altura del contenedor */
+    display: flex; /* Permite aplicar flex a hijos si es necesario */
+}
+
+/* Imagen de la escuela propiamente dicha */
+.school-img {
+    width: 100%; /* Imagen ocupa todo el ancho disponible */
+    height: 100%; /* Imagen ocupa toda la altura disponible */
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor sin deformarse */
+}
+
+/* Columna de texto al lado de la imagen */
+.text-column {
+    flex: 1; /* Ocupa el espacio restante del contenedor */
+    padding: 40px; /* Espaciado interno alrededor del texto */
+    display: flex; /* Permite organizar el contenido en columna */
+    flex-direction: column; /* Coloca los elementos hijos en vertical */
+}
+
+/* Encabezado dentro de la columna de texto */
+.school-header {
+    margin-bottom: 30px; /* Espacio inferior para separar del contenido siguiente */
+}
+
+/* Nombre de la escuela */
+.school-name {
+    color: #2c5aa0; /* Color azul para el nombre */
+    font-size: 2.2rem; /* Tamaño de fuente grande */
+    margin-bottom: 10px; /* Espacio debajo del nombre */
+    font-weight: 700; /* Fuente negrita */
+    position: relative; /* Necesario para el pseudo-elemento ::after */
+    padding-bottom: 15px; /* Espacio debajo para la línea decorativa */
+}
+
+/* Línea decorativa debajo del nombre de la escuela */
+.school-name::after {
+    content: ''; /* Contenido vacío para generar línea */
+    position: absolute; /* Posiciona la línea respecto al nombre */
+    bottom: 0; /* Línea pegada al fondo del texto */
+    left: 0; /* Alineada a la izquierda */
+    width: 600px; /* Longitud de la línea */
+    height: 3px; /* Grosor de la línea */
+    background-color: #f9a826; /* Color dorado de la línea */
+}
+
+/* Lema o tagline de la escuela */
+.tagline {
+    color: #666; /* Color gris */
+    font-size: 1.2rem; /* Tamaño de fuente medio */
+    font-weight: 500; /* Fuente semi-negrita */
+}
+
+/* Contenedor para el contenido de bienvenida */
+.welcome-content {
+    flex: 1; /* Ocupa todo el espacio vertical disponible */
+    display: flex; /* Organiza contenido en columna */
+    flex-direction: column; /* Coloca elementos en vertical */
+}
+
+/* Texto de bienvenida */
+.welcome-text {
+    font-size: 1.1rem; /* Tamaño de fuente legible */
+    line-height: 1.8; /* Altura de línea para mejor lectura */
+    margin-bottom: 30px; /* Espacio debajo del párrafo */
+    color: #444; /* Color gris oscuro */
+    flex: 1; /* Permite que el texto crezca y ocupe espacio disponible */
+    text-align: justify;
+}
+
+/* Información del director de la escuela */
+.director-info {
+    display: flex; /* Organiza la imagen y detalles en fila */
+    align-items: center; /* Centra verticalmente la imagen y texto */
+    gap: 20px; /* Espacio entre la imagen y el texto */
+    padding-top: 20px; /* Espacio superior */
+    border-top: 1px solid #eee; /* Línea superior como separación */
+}
+
+/* Contenedor de la imagen del director */
+.director-image {
+    width: 80px; /* Ancho de la imagen */
+    height: 80px; /* Alto de la imagen */
+    border-radius: 50%; /* Imagen circular */
+    overflow: hidden; /* Oculta cualquier contenido fuera del círculo */
+    flex-shrink: 0; /* Evita que la imagen se reduzca al encoger */
+}
+
+/* Imagen del director propiamente dicha */
+.director-img {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 100%; /* Ocupa toda la altura del contenedor */
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
+}
+
+/* Contenedor de los detalles del director (nombre, cargo) */
+.director-details {
+    flex: 1; /* Ocupa el espacio restante */
+}
+
+/* Nombre del director */
+.director-name {
+    font-weight: bold; /* Fuente en negrita */
+    color: #2c5aa0; /* Azul */
+    font-size: 1.2rem; /* Tamaño de fuente medio */
+    margin-bottom: 5px; /* Espacio debajo del nombre */
+}
+
+/* Cargo del director */
+.director-title {
+    color: #666; /* Gris */
+    font-size: 1rem; /* Tamaño de fuente estándar */
+}
+
+/* Contenedor de estadísticas (alumnos, profesores, etc.) */
+.stats-container {
+    display: flex; /* Coloca estadísticas en fila */
+    justify-content: space-around; /* Distribuye espacio uniformemente */
+    background: linear-gradient(135deg, #2c5aa0 0%, #1e3a6b 100%); /* Fondo degradado azul oscuro */
+    padding: 40px 20px; /* Espacio interno arriba/abajo y lateral */
+}
+
+/* Cada elemento de estadística */
+.stat-item {
+    text-align: center; /* Centra el contenido */
+    color: white; /* Texto blanco */
+    flex: 1; /* Ocupa espacio disponible */
+    max-width: 200px; /* Limita ancho máximo */
+}
+
+/* Número grande de la estadística */
+.stat-number {
+    font-size: 2.5rem; /* Tamaño muy grande */
+    font-weight: 700; /* Negrita */
+    margin-bottom: 10px; /* Espacio debajo del número */
+}
+
+/* Etiqueta descriptiva de la estadística */
+.stat-label {
+    font-size: 1rem; /* Tamaño estándar */
+    opacity: 0.9; /* Ligera transparencia */
+}
+
+/* ===== MEDIA QUERIES ===== */
+
+/* Ajustes para pantallas menores a 768px (tablet) */
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column; /* Coloca columnas en vertical */
+    }
+    
+    .image-column {
+        flex: 0 0 300px; /* Limita altura de la imagen a 300px */
+    }
+    
+    .text-column {
+        padding: 30px 20px; /* Reduce el padding para pantallas más pequeñas */
+    }
+    
+    .school-name {
+        font-size: 1.8rem; /* Reduce tamaño de la fuente del nombre */
+    }
+    
+}
+    
+
+
+
+
+
+
+/* ===== Seccion matricula ===== */
+
+.welcome-section {
+    
+    margin: 0 auto; /* Centra horizontalmente la sección en la página */
+    padding: 80px 20px; /* Espaciado interno: 80px arriba y abajo, 20px a los lados */
+}
+
+/* Contenedor principal blanco con sombra y bordes redondeados */
+.container {
+    background-color: white; /* Fondo blanco para la sección */
+    border-radius: 15px; /* Bordes redondeados de 15px */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Sombra suave debajo del contenedor */
+    overflow: hidden; /* Evita que el contenido sobresalga fuera de los bordes redondeados */
+}
+
+/* Wrapper de contenido para organizar columnas */
+.content-wrapper {
+    display: flex; /* Coloca hijos en fila (horizontalmente) */
+    min-height: 500px; /* Altura mínima de la sección para mantener proporciones */
+}
+
+/* Columna para la imagen de la escuela */
+.image-column {
+    flex: 0 0 45%; /* Ocupa 45% del ancho disponible, no crece ni se encoge automáticamente */
+    display: flex; /* Permite centrar la imagen dentro de la columna */
+    align-items: center; /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    overflow: hidden; /* Oculta cualquier contenido que sobresalga */
+}
+
+/* Contenedor de la imagen con tamaño completo */
+.school-image {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 100%; /* Ocupa toda la altura del contenedor */
+    display: flex; /* Permite aplicar flex a hijos si es necesario */
+}
+
+/* Imagen de la escuela propiamente dicha */
+.school-img {
+    width: 100%; /* Imagen ocupa todo el ancho disponible */
+    height: 100%; /* Imagen ocupa toda la altura disponible */
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor sin deformarse */
+}
+
+/* Columna de texto al lado de la imagen */
+.text-column {
+    flex: 1; /* Ocupa el espacio restante del contenedor */
+    padding: 40px; /* Espaciado interno alrededor del texto */
+    display: flex; /* Permite organizar el contenido en columna */
+    flex-direction: column; /* Coloca los elementos hijos en vertical */
+}
+
+/* Encabezado dentro de la columna de texto */
+.school-header {
+    margin-bottom: 30px; /* Espacio inferior para separar del contenido siguiente */
+}
+
+/* Nombre de la escuela */
+.school-name {
+    color: #2c5aa0; /* Color azul para el nombre */
+    font-size: 2.2rem; /* Tamaño de fuente grande */
+    margin-bottom: 10px; /* Espacio debajo del nombre */
+    font-weight: 700; /* Fuente negrita */
+    position: relative; /* Necesario para el pseudo-elemento ::after */
+    padding-bottom: 15px; /* Espacio debajo para la línea decorativa */
+}
+
+/* Línea decorativa debajo del nombre de la escuela */
+.school-name::after {
+    content: ''; /* Contenido vacío para generar línea */
+    position: absolute; /* Posiciona la línea respecto al nombre */
+    bottom: 0; /* Línea pegada al fondo del texto */
+    left: 0; /* Alineada a la izquierda */
+    width: 600px; /* Longitud de la línea */
+    height: 3px; /* Grosor de la línea */
+    background-color: #f9a826; /* Color dorado de la línea */
+}
+
+/* Lema o tagline de la escuela */
+.tagline {
+    color: #666; /* Color gris */
+    font-size: 1.2rem; /* Tamaño de fuente medio */
+    font-weight: 500; /* Fuente semi-negrita */
+}
+
+/* Contenedor para el contenido de bienvenida */
+.welcome-content {
+    flex: 1; /* Ocupa todo el espacio vertical disponible */
+    display: flex; /* Organiza contenido en columna */
+    flex-direction: column; /* Coloca elementos en vertical */
+}
+
+/* Texto de bienvenida */
+.welcome-text {
+    font-size: 1.1rem; /* Tamaño de fuente legible */
+    line-height: 1.8; /* Altura de línea para mejor lectura */
+    margin-bottom: 30px; /* Espacio debajo del párrafo */
+    color: #444; /* Color gris oscuro */
+    flex: 1; /* Permite que el texto crezca y ocupe espacio disponible */
+    text-align: justify;
+}
+
+/* Información del director de la escuela */
+.director-info {
+    display: flex; /* Organiza la imagen y detalles en fila */
+    align-items: center; /* Centra verticalmente la imagen y texto */
+    gap: 20px; /* Espacio entre la imagen y el texto */
+    padding-top: 20px; /* Espacio superior */
+    border-top: 1px solid #eee; /* Línea superior como separación */
+}
+
+/* Contenedor de la imagen del director */
+.director-image {
+    width: 80px; /* Ancho de la imagen */
+    height: 80px; /* Alto de la imagen */
+    border-radius: 50%; /* Imagen circular */
+    overflow: hidden; /* Oculta cualquier contenido fuera del círculo */
+    flex-shrink: 0; /* Evita que la imagen se reduzca al encoger */
+}
+
+/* Imagen del director propiamente dicha */
+.director-img {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    height: 100%; /* Ocupa toda la altura del contenedor */
+    object-fit: cover; /* Ajusta la imagen para cubrir el contenedor */
+}
+
+/* Contenedor de los detalles del director (nombre, cargo) */
+.director-details {
+    flex: 1; /* Ocupa el espacio restante */
+}
+
+/* Nombre del director */
+.director-name {
+    font-weight: bold; /* Fuente en negrita */
+    color: #2c5aa0; /* Azul */
+    font-size: 1.2rem; /* Tamaño de fuente medio */
+    margin-bottom: 5px; /* Espacio debajo del nombre */
+}
+
+/* Cargo del director */
+.director-title {
+    color: #666; /* Gris */
+    font-size: 1rem; /* Tamaño de fuente estándar */
+}
+
+/* Contenedor de estadísticas (alumnos, profesores, etc.) */
+.stats-container {
+    display: flex; /* Coloca estadísticas en fila */
+    justify-content: space-around; /* Distribuye espacio uniformemente */
+    background: linear-gradient(135deg, #2c5aa0 0%, #1e3a6b 100%); /* Fondo degradado azul oscuro */
+    padding: 40px 20px; /* Espacio interno arriba/abajo y lateral */
+}
+
+/* Cada elemento de estadística */
+.stat-item {
+    text-align: center; /* Centra el contenido */
+    color: white; /* Texto blanco */
+    flex: 1; /* Ocupa espacio disponible */
+    max-width: 200px; /* Limita ancho máximo */
+}
+
+/* Número grande de la estadística */
+.stat-number {
+    font-size: 2.5rem; /* Tamaño muy grande */
+    font-weight: 700; /* Negrita */
+    margin-bottom: 10px; /* Espacio debajo del número */
+}
+
+/* Etiqueta descriptiva de la estadística */
+.stat-label {
+    font-size: 1rem; /* Tamaño estándar */
+    opacity: 0.9; /* Ligera transparencia */
+}
+
+/* ===== MEDIA QUERIES ===== */
+
+/* Ajustes para pantallas menores a 768px (tablet) */
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column; /* Coloca columnas en vertical */
+    }
+    
+    .image-column {
+        flex: 0 0 300px; /* Limita altura de la imagen a 300px */
+    }
+    
+    .text-column {
+        padding: 30px 20px; /* Reduce el padding para pantallas más pequeñas */
+    }
+    
+    .school-name {
+        font-size: 1.8rem; /* Reduce tamaño de la fuente del nombre */
+    }
+    
+    .stats-container {
+        flex-wrap: wrap; /* Permite que las estadísticas se acomoden en varias filas */
+        gap: 20px; /* Espacio entre elementos */
+    }
+    
+    .stat-item {
+        flex: 0 0 calc(50% - 20px); /* Cada estadística ocupa la mitad del ancho menos el gap */
+    }
+}
+    
+
+/* ===============================
+   MÓVIL
+=============================== */
+@media (max-width: 768px) {
+  /* Ajuste padding de sección servicios */
+  .bienvenidos-secccion{
+    padding: 60px 15px;
+  }
+
+  /* Ajuste tamaño del título */
+  .bienvenidos-secccion h2 {
+    font-size: 2rem;
+  }
+.school-name {
+        font-size: 1.5rem; /* Reduce aún más el tamaño del nombre */
+    }
+    
+    .stat-item {
+        flex: 0 0 100%; /* Cada estadística ocupa toda la fila */
+    }
+    
+    .director-info {
+        flex-direction: column; /* Pasa la info del director a vertical */
+        text-align: center; /* Centra el contenido */
+    }
+    
+    .director-image {
+        width: 70px; /* Imagen más pequeña */
+        height: 70px; /* Imagen más pequeña */
+    }
+}
+ 
+
+/* -------------------------------------------------- */
+
+
+
+
+
+
+.mi-boton {
+  padding: 8px 16px;          /* Tamaño normal */
+  font-size: 16px;             /* Tamaño estándar del texto */
+  border-radius: 5px;          /* Bordes redondeados */
+  border: none;                /* Sin borde */
+  background-color: #2c5aa0;   /* Fondo azul */
+  color: white;                /* Texto blanco */
+  cursor: pointer;
+  display: inline-block;       /* Permite centrado con text-align */
+  transition: background-color 0.3s, transform 0.2s; /* Efecto hover */
+    width: 200px;      /* Ancho fijo */
+}
+
+.mi-boton:hover {
+  background-color: #1f447a;   /* Cambio de color al pasar el mouse */
+  transform: translateY(-2px); /* Pequeño levantamiento */
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .content-wrapper {
+    flex-direction: column;    /* Columnas apiladas en móviles */
+  }
+}
+
+
+
+
+
+/* =====================
+SECCIÓN NOTICIAS
+===================== */
+.noticias-section {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f8f8f8;
+}
+
+.noticias-section h2 {
+  font-size: 2rem;
+  color: #2c5aa0;
+  margin-bottom: 10px;
+}
+
+.noticias-section .subtitulo {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 40px;
+}
+
+.noticias-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.noticia-card {
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  max-width: 350px;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.noticia-card:hover {
+  transform: translateY(-5px);
+}
+
+.noticia-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.noticia-contenido {
+  padding: 20px;
+}
+
+.noticia-contenido h3 {
+  color: #2c5aa0;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.noticia-contenido p {
+  color: #555;
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+.leer-mas {
+  color: #2c5aa0;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.leer-mas:hover {
+  text-decoration: underline;
+}
+
+/* PAGINACION */
+.pagination {
+  margin-top: 30px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.pagination button {
+  padding: 8px 14px;
+  border: none;
+  background: #2c5aa0;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.pagination button.active {
+  background: #0d3f85;
+}
+
+.pagination button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #1a4d90;
+}
+
+.noticias-section h2::after {
+  content: ""; /* Contenido vacío */
+  width: 600px; /* Ancho de la línea */
+  height: 4px; /* Grosor */
+  background-color: #ffcc00; /* Color amarillo */
+  display: block; /* Mostrar como bloque */
+  margin: 15px auto 0; /* Centrar horizontal y separarlo del título */
+  border-radius: 2px; /* Bordes redondeados */
+}
